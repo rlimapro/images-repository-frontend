@@ -2,7 +2,7 @@ interface TemplateProps {
     children: React.ReactNode
 }
 
-export const Template = (props : TemplateProps) => {
+const Template = (props : TemplateProps) => {
     return (
         <>
             <Header/>
@@ -16,6 +16,8 @@ export const Template = (props : TemplateProps) => {
         </>
     );
 }
+
+export default Template;
 
 const Header = () => {
     return (
