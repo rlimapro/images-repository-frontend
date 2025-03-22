@@ -11,12 +11,13 @@ export default function GaleriaPage() {
     const [images, setImages] = useState<Image[]>([]);
     const [query, setQuery] = useState<string>('');
     const [extension, setExtension] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     async function searchImages() {
-        console.log("Query digitada: ", query)
-        console.log("Extensão selecionanda: ", extension)
+        setLoading(true);
         const response = await useService.buscar(query, extension);
         setImages(response);
+        setLoading(false);
     }
 
     function renderImageCard(image : Image) {
@@ -35,7 +36,7 @@ export default function GaleriaPage() {
     }
 
     return (
-        <Template>
+        <Template loading={loading}>
 
             <section className="flex flex-col items-center justify-center my-5">
                 <div className="flex space-x-4">
@@ -49,8 +50,8 @@ export default function GaleriaPage() {
                         <option value="JPEG">JPEG</option> 
                         <option value="GIF">GIF</option>                        
                     </select>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer" onClick={searchImages}>Search</button>
-                    <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg cursor-pointer">Add new</button>
+                    <button className="bg-blue-500 text-white font-bold px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-400" onClick={searchImages}>Search</button>
+                    <button className="bg-green-700 text-white font-bold px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600">Add new</button>
                 </div>
             </section>
 
