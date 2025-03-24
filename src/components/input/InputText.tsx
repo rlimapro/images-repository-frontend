@@ -3,7 +3,7 @@ import React from "react"
 interface InputTextProps {
     style?: string;
     placeholder ?: string;
-    onChange: (event : React.ChangeEvent<HTMLInputElement>) => void; 
+    onChange?: (event : React.ChangeEvent<HTMLInputElement>) => void; 
 }
 
 const InputText = ({ style, ...outrasProps } : InputTextProps) => {
