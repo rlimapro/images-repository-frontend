@@ -3,7 +3,7 @@ interface TemplateProps {
     loading?: boolean;
 }
 
-const Template = ({children, loading} : TemplateProps) => {
+const Template = ({children, loading = false} : TemplateProps) => {
     return (
         <>
             <Header/>

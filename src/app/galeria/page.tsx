@@ -1,9 +1,10 @@
 'use client'
 
-import { Template, ImageCard }  from "@/components"
+import { Template, ImageCard, Button }  from "@/components"
 import { Image } from '@/resources'
 import { useImageService } from '@/resources'
 import { useState } from 'react' 
+import Link from "next/link"
 
 export default function GaleriaPage() {
 
@@ -50,8 +51,10 @@ export default function GaleriaPage() {
                         <option value="JPEG">JPEG</option> 
                         <option value="GIF">GIF</option>                        
                     </select>
-                    <button className="bg-blue-500 text-white font-bold px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-400" onClick={searchImages}>Search</button>
-                    <button className="bg-green-700 text-white font-bold px-4 py-2 rounded-lg cursor-pointer hover:bg-green-600">Add new</button>
+                    <Button style="bg-blue-500 hover:bg-blue-400" label="Search" onClick={searchImages} />
+                    <Link href="/formulario">
+                        <Button style="bg-green-700 hover:bg-green-600" label="Add new" />
+                    </Link>
                 </div>
             </section>
 
