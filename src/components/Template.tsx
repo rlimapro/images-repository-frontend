@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify"
+
 interface TemplateProps {
     children: React.ReactNode
     loading?: boolean;
@@ -7,7 +9,6 @@ const Template = ({children, loading = false} : TemplateProps) => {
     return (
         <>
             <Header/>
-
             <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`}>
                 <RenderIf condition={loading}>
                     <div className="text-center">
@@ -16,8 +17,13 @@ const Template = ({children, loading = false} : TemplateProps) => {
                 </RenderIf>
                 { children }
             </div>
-
             <Footer/>
+            <ToastContainer position="top-right" 
+                            autoClose={6000}
+                            hideProgressBar={false}
+                            draggable={false}
+                            closeOnClick={true}
+                            pauseOnHover={true} />
         </>
     );
 }
