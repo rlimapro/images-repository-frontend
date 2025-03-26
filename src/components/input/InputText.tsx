@@ -1,6 +1,7 @@
 import React from "react"
 
 interface InputTextProps {
+    id?: string;
     style?: string;
     placeholder ?: string;
     onChange?: (event : React.ChangeEvent<HTMLInputElement>) => void; 
