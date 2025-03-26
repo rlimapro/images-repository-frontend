@@ -16,6 +16,7 @@ const formScheme: FormProps = { name: '', tags: '', file: '' };
 
 export default function FormularioPage() {
 
+    const[loading, setLoading] = useState<boolean>(false);
     const[imagePreview, setImagePreview] = useState<string>();
     const service = useImageService();
 
@@ -25,7 +26,10 @@ export default function FormularioPage() {
     });
 
     async function handleSubmit({name, tags, file} : FormProps) {
+        setLoading(true);
+
         const formData = new FormData();
+        
         formData.append("name", name);
         formData.append("tags", tags);
         formData.append("file", file);
@@ -34,6 +38,8 @@ export default function FormularioPage() {
         
         formik.resetForm();
         setImagePreview('');
+        
+        setLoading(false);
     }
 
     function onFileUpload(event : React.ChangeEvent<HTMLInputElement>) {
@@ -46,7 +52,7 @@ export default function FormularioPage() {
     }
 
     return (
-        <Template>
+        <Template loading={loading}>
             <section className="flex flex-col items-center justify-content my-5">
                 <h5 className="mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">New Image</h5>
                 <form onSubmit={formik.handleSubmit}>
@@ -56,14 +62,16 @@ export default function FormularioPage() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Name *</label>
                             <InputText id="name" 
                                        placeholder="Tiger" 
-                                       onChange={formik.handleChange} />
+                                       onChange={formik.handleChange} 
+                                       value={formik.values.name}/>
                         </div>
 
                         <div className="grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Tags  *</label>
                             <InputText id="tags" 
                                        placeholder="nature, animal, feline" 
-                                       onChange={formik.handleChange} />
+                                       onChange={formik.handleChange}
+                                       value={formik.values.tags} />
                         </div>
                     </div>
 
