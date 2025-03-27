@@ -5,14 +5,7 @@ import { useImageService } from '@/resources'
 import Link from "next/link";
 import { useFormik } from 'formik';
 import { useState } from "react";
-
-interface FormProps {
-    name: string;
-    tags: string;
-    file: any;
-}
-
-const formScheme: FormProps = { name: '', tags: '', file: '' };
+import { FormProps, formSchema, formValidationSchema } from "./formSchema"
 
 export default function FormularioPage() {
 
@@ -22,8 +15,9 @@ export default function FormularioPage() {
     const notification = useNotification();
 
     const formik = useFormik<FormProps>({
-        initialValues: formScheme,
-        onSubmit: handleSubmit
+        initialValues: formSchema,
+        onSubmit: handleSubmit,
+        validationSchema: formValidationSchema
     });
 
     async function handleSubmit({name, tags, file} : FormProps) {
@@ -67,6 +61,11 @@ export default function FormularioPage() {
                                        placeholder="Tiger" 
                                        onChange={formik.handleChange} 
                                        value={formik.values.name}/>
+                            <div className="min-h-5 mt-1">
+                                <span className="text-red-500 text-sm">{ formik.errors.name }</span>
+                            </div>
+                                       
+
                         </div>
 
                         <div className="grid grid-cols-1">
@@ -75,6 +74,9 @@ export default function FormularioPage() {
                                        placeholder="nature, animal, feline" 
                                        onChange={formik.handleChange}
                                        value={formik.values.tags} />
+                            <div className="min-h-5 mt-1">
+                                <span className="text-red-500 text-sm">{ formik.errors.tags }</span>
+                            </div>
                         </div>
                     </div>
 
@@ -101,6 +103,9 @@ export default function FormularioPage() {
                                 </label>
                              </div>
                             </div>
+                        </div>
+                        <div className="min-h-5 mt-1">
+                            <span className="text-red-500 text-sm">{ formik.errors.file }</span>
                         </div>
                     </div>
 
