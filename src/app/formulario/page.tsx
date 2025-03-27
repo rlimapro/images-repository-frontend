@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, InputText, Template, RenderIf, useNotification } from "@/components"
+import { Button, InputText, Template, RenderIf, useNotification, FieldError } from "@/components"
 import { useImageService } from '@/resources'
 import Link from "next/link";
 import { useFormik } from 'formik';
@@ -62,7 +62,7 @@ export default function FormularioPage() {
                                        onChange={formik.handleChange} 
                                        value={formik.values.name}/>
                             <div className="min-h-5 mt-1">
-                                <span className="text-red-500 text-sm">{ formik.errors.name }</span>
+                                <FieldError error={formik.errors.name} />
                             </div>
                                        
 
@@ -75,7 +75,7 @@ export default function FormularioPage() {
                                        onChange={formik.handleChange}
                                        value={formik.values.tags} />
                             <div className="min-h-5 mt-1">
-                                <span className="text-red-500 text-sm">{ formik.errors.tags }</span>
+                                <FieldError error={formik.errors.tags} />
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ export default function FormularioPage() {
                             </div>
                         </div>
                         <div className="min-h-5 mt-1">
-                            <span className="text-red-500 text-sm">{ formik.errors.file }</span>
+                            <FieldError error={formik.errors.file} />
                         </div>
                     </div>
 
