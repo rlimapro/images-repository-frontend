@@ -61,11 +61,7 @@ export default function FormularioPage() {
                                        placeholder="Tiger" 
                                        onChange={formik.handleChange} 
                                        value={formik.values.name}/>
-                            <div className="min-h-5 mt-1">
-                                <FieldError error={formik.errors.name} />
-                            </div>
-                                       
-
+                            <FieldError error={formik.errors.name} />
                         </div>
 
                         <div className="grid grid-cols-1">
@@ -74,9 +70,7 @@ export default function FormularioPage() {
                                        placeholder="nature, animal, feline" 
                                        onChange={formik.handleChange}
                                        value={formik.values.tags} />
-                            <div className="min-h-5 mt-1">
-                                <FieldError error={formik.errors.tags} />
-                            </div>
+                            <FieldError error={formik.errors.tags} />
                         </div>
                     </div>
 

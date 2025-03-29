@@ -1,17 +1,24 @@
 'use client'
 
-import { Template, RenderIf, InputText, Button } from "@/components"
+import { Template, RenderIf, InputText, Button, FieldError } from "@/components"
 import { useState } from 'react'
-import { Formik } from 'formik'
-
-interface LoginProps {
-
-}
+import { Formik, useFormik } from 'formik'
+import { LoginFormProps, loginFormSchema, loginFormValidationSchema } from "./formSchema";
 
 export default function Login() {
 
     const[loading, setLoading] = useState<boolean>(false);
     const[newUserState, setNewUserState] = useState<boolean>(true);
+
+    const formik = useFormik<LoginFormProps>({
+        initialValues: loginFormSchema,
+        onSubmit: handleSubmit,
+        validationSchema: loginFormValidationSchema
+    })
+
+    async function handleSubmit(values : LoginFormProps) {
+        console.log(values);
+    }
     
     return (
         <Template loading={loading}>
@@ -24,14 +31,17 @@ export default function Login() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-2">
+                    <form onSubmit={formik.handleSubmit} className="space-y-2">
                         <RenderIf condition={newUserState}>
                             <div>
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Name:</label>
                             </div>
                             <div className="mt-2">
                                 <InputText style="w-full" 
-                                           id="name" />
+                                           id="name" 
+                                           value={formik.values.name}
+                                           onChange={formik.handleChange}/>
+                                <FieldError error={formik.errors.name} />
                             </div>
                         </RenderIf>
                         
@@ -41,7 +51,10 @@ export default function Login() {
                         <div className="mt-2">
                             <InputText style="w-full" 
                                         id="email" 
-                                        type="email" />
+                                        type="email" 
+                                        value={formik.values.email}
+                                        onChange={formik.handleChange}/>
+                            <FieldError error={formik.errors.email} />
                         </div>
 
                         <div>
@@ -50,7 +63,10 @@ export default function Login() {
                         <div className="mt-2">
                             <InputText style="w-full" 
                                         id="password" 
-                                        type="password" />
+                                        type="password" 
+                                        value={formik.values.password}
+                                        onChange={formik.handleChange}/>
+                            <FieldError error={formik.errors.password} />
                         </div>
 
                         <RenderIf condition={newUserState}>
@@ -60,7 +76,10 @@ export default function Login() {
                             <div className="mt-2">
                                 <InputText style="w-full" 
                                             id="passwordMatch" 
-                                            type="password" />
+                                            type="password" 
+                                            value={formik.values.passwordMatch}
+                                            onChange={formik.handleChange}/>
+                                <FieldError error={formik.errors.passwordMatch} />
                             </div>
                         </RenderIf>
 
