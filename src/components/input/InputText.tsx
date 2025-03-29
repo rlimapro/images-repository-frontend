@@ -5,12 +5,13 @@ interface InputTextProps {
     style?: string;
     placeholder ?: string;
     value?: string;
+    type?: string;
     onChange?: (event : React.ChangeEvent<HTMLInputElement>) => void; 
 }
 
-const InputText = ({ style, ...outrasProps } : InputTextProps) => {
+const InputText = ({ style, type ="text", ...outrasProps } : InputTextProps) => {
     return (
-        <input type="text" 
+        <input type={type} 
                {...outrasProps}
                className={`${style} border px-4 py-2 rounded-lg text-gray-900`} />
     );

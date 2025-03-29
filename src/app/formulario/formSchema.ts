@@ -25,6 +25,6 @@ export const formValidationSchema = Yup.object().shape({
                 return file.size < 4000000;
              })
              .test("type", "Accepted formats: JPEG, GIF or PNG", (file) => {
-                return file.type === "image/jpeg" || file.type === "image/gip" || file.type === "image/png"
+                return file.type === "image/jpeg" || file.type === "image/gif" || file.type === "image/png"
              })
 })
