@@ -1,14 +1,20 @@
 'use client'
 
-import { Template, RenderIf, InputText, Button, FieldError } from "@/components"
+import { Template, RenderIf, InputText, Button, FieldError, useNotification } from "@/components"
 import { useState } from 'react'
 import { Formik, useFormik } from 'formik'
 import { LoginFormProps, loginFormSchema, loginFormValidationSchema } from "./formSchema";
+import { AccessToken, Credentials, useAuth, User } from "@/resources";
+import { useRouter } from 'next/navigation'
 
 export default function Login() {
 
+    const auth = useAuth();
+    const notification = useNotification();
+    const router = useRouter();
+
     const[loading, setLoading] = useState<boolean>(false);
-    const[newUserState, setNewUserState] = useState<boolean>(true);
+    const[newUserState, setNewUserState] = useState<boolean>(false);
 
     const formik = useFormik<LoginFormProps>({
         initialValues: loginFormSchema,
@@ -17,7 +23,41 @@ export default function Login() {
     })
 
     async function handleSubmit(values : LoginFormProps) {
-        console.log(values);
+        if(!newUserState) {
+
+            const credentials: Credentials = { 
+                email: values.email, 
+                password: values.password 
+            }
+
+            try {
+                const accessToken: AccessToken = await auth.authenticate(credentials);
+                router.push("/galeria")
+
+            } catch(error: any) {
+                const errorMessage = error?.message;
+                notification.notify(errorMessage, "error");
+            }
+        } 
+        else {
+
+            const user: User = {
+                name: values.name, 
+                email: values.email,
+                password: values.password
+            };
+
+            try {
+                await auth.save(user);
+                notification.notify("User saved succesfully!", "success");
+                formik.resetForm();
+                setNewUserState(false);
+
+            } catch(error: any) {
+                const errorMessage = error?.message;
+                notification.notify(errorMessage, "error");
+            }
+        }
     }
     
     return (

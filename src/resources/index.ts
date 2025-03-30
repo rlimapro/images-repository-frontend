@@ -1,2 +1,4 @@
-export { useImageService } from '@/resources/image.service'
-export { Image } from '@/resources/image.resource'
+export { useImageService } from './image'
+export { Image } from './image'
+export { User, Credentials, AccessToken, UserSessionToken } from './user'
+export { useAuth } from './user'
