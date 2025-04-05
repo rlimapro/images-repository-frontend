@@ -1,6 +1,7 @@
 import { ToastContainer } from "react-toastify"
 import { useAuth } from "@/resources";
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 
 interface TemplateProps {
     children: React.ReactNode
@@ -36,9 +37,11 @@ export default Template;
 const Header = () => {
     const auth = useAuth();
     const user = auth.getUserSession();
+    const router = useRouter();
 
     function logout() {
-
+        auth.invalidateSession();
+        router.push("/login")
     }
 
 
